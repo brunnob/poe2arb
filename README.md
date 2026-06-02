@@ -11,12 +11,17 @@ API (the browser can't call it directly — CORS, the `POESESSID` cookie, and a
 
 ## How it works
 
-- **`/api/spread?base=divine&quote=exalted&league=Standard`** — computes the bid-ask
-  spread for `base` priced in `quote`. It issues two exchange queries (one per
-  direction), normalizes the offers, and returns best ask, best bid, mid, spread %,
-  an arbitrage flag (crossed book), and the top offers on each side.
+- **`/`** — Currency bid-ask: pick a pair + league and view the spread and both order books.
+- **`/builder`** — Query builder: visually compose an item-search query, see the **exact API
+  payload** update live, copy it as JSON or **cURL**, and run it. Ships ~10 "typical query"
+  presets (unique by name, life+res chest, min-DPS weapon, caster sceptre, gem by level,
+  waystone by tier, …) and an autocomplete over **2,000+ real PoE2 stat IDs**.
+- **`/api/spread?base=divine&quote=exalted&league=Standard`** — computes the bid-ask spread
+  for `base` priced in `quote`: two exchange queries (one per direction), normalized offers,
+  best ask/bid, mid, spread %, and a crossed-book arbitrage flag.
+- **`/api/search`** (POST `{ league, query, limit }`) — runs the 2-step item search
+  (POST search → batched GET fetch, ≤10 ids/call) and returns normalized listings.
 - **`/api/currencies`** — the list of supported currency tags.
-- **`/`** — a UI to pick a pair + league and view the spread and both order books.
 
 See **[FINDINGS.md](./FINDINGS.md)** for the full trade API contract, currency tags,
 the bid-ask math, and auth/rate-limit details.

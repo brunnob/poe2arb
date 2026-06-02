@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import type { Currency } from "@/lib/currencies";
 import type { NormalizedOffer, SpreadResult } from "@/lib/types";
 
@@ -90,6 +91,10 @@ export default function Home() {
 
   return (
     <div className="wrap">
+      <nav className="nav">
+        <span>Currency bid-ask</span>
+        <Link href="/builder">Query builder →</Link>
+      </nav>
       <h1>poe2arb · Currency Exchange bid-ask</h1>
       <p className="sub">
         Bid-ask spreads &amp; arbitrage in the Path of Exile 2 Currency Exchange
